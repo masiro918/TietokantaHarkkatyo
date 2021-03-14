@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<title>Kysymys&Vastaus - foorumi</title>
+<style>
+	body {
+		background-color: #33c4ff;
+	}
+	
+	a {
+		background-color: #ffd433;
+		color: black;
+		/*border-style: solid;*/
+	}
+	
+	a:hover {
+		color: white;
+		background-color: black;
+	}
+
+	.upper_panel {
+		background-color: yellow;
+		background-image: url({{url_for('static', filename='kysymys_ja_vastaus_logo_small.jpg')}});
+		padding: 79px;
+		background-repeat: no-repeat;
+		border-radius: .5em;
+		margin-left: 10%;
+		margin-right: 10%;
+	}
+
+	.middle_panel {
+		background-color: #33ffc7;
+		font-family: Arial, Helvetica, sans-serif;
+		padding-bottom: 7px;
+		border-radius: .5em;
+		margin-left: 10%;
+		margin-right: 10%;
+		margin-bottom: 4px
+	}
+
+	.content_area {
+		background-color: lightblue;
+		border-radius: .5em;
+		font-family: Arial, Helvetica, sans-serif;
+		margin-left: 10%;
+		margin-right: 10%;
+	}
+	
+	.message_area {
+		background-color: #F0F8FF;
+	}
+	
+	p.info_text {
+		margin-top: 5px;
+		background-color: red;
+		color: white;
+		font-family: "Lucida Console", "Courier New", monospace;
+		border-radius: .5em;
+		margin-left: 10%;
+		margin-right: 10%;
+	}
+	
+	form #send_button{
+		padding: 3px;
+		text-align: center;
+		width: 10em;
+		background: #387e3a;
+		color: white;
+	}
+	
+	form #delete_button{
+		padding: 3px;
+		text-align: center;
+		width: 10em;
+		background: #387e3a;
+		color: white;
+	}
+	
+	form #login_button{
+		padding: 3px;
+		text-align: center;
+		width: 10em;
+		background: blue;
+		color: white;
+	}
+	
+	a.logout {
+		padding-right: 3px;
+		padding-left: 3px;
+		padding-bottom: 5px;
+		padding-top: 5px;
+		background-image: url({{url_for('static', filename='button_background.jpg')}});
+		/*background-repeat: no-repeat;*/
+		color: white;
+	}
+
+</style>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<body>
+<div class="upper_panel">
+</div>
+
+<div class="middle_panel">
+	{% if session.username %}
+	<p>Olet kirjautunut nimellä <b>{{ session.username }}</b></p>
+	<a class="logout" href="/logout">kirjaudu ulos</a><br>
+	{% else %}
+	<p>kirjautumisloamke</p>
+	<form action="/login" method="POST">
+	tunnus:
+	<input type="text" name="username">
+	salasana:
+	<input type="password" name="password">
+	<input id="login_button" type="submit" value="Kirjaudu">
+	<a href="/register">rekisteröidy</a></p>
+	</form>
+	{% endif %}
+</div>
+
+<div class="content_area">
+	<div class="back_to_topic_list">
+		<br><a href="/topics?msg_count=10">takaisin aihelistaan</a>
+	</div>
+	<br>
+	<p><b>{{ topic }}</b></p>
+	<p><b>{{ topic_timestamp }}</b></p>
+	<p>kysyjä: <a href="/profiles/{{ questioner }}">{{ questioner }}</a></p>
+	<p><i>kysymys:</i> <br><b>{{ question_content }}</b></p>
+	<br>
+	<br>
+	
+	{% for message in messages %}
+	<div class="message_area">
+		<p><b><a href="/profiles/{{ message.username }}">{{ message.username }}</a></b><br>{{ message.content }} <br><i>{{ message.timestamp }}</i><br>tykkäyksiä: {{ message.likes }} </p>
+		{% if session.usertype ==  'admin' or session.usertype == 'moderator' %}
+		<p>
+			<form action="/delete_message" method="POST">
+				<input type="hidden" value="{{ topic_id }}" name="topic_id">
+				<input type="hidden" value="{{ message.id }}" name="message_id">
+				<input id="delete_button" type="submit" value="poista tämä viesti">
+			</form>
+		</p>
+		{% endif %}
+		{% if session.username %}
+		<p>Oliko tämä vastaus mielestäsi hyvödyllinen? Jos oli, <a href="/add_like?message_id={{ message.id }}&topic_id={{ topic_id }}">tykkää vastauksesta</a>.</p>
+		{% else %}
+		{% endif %}
+	</div>
+	<br>
+	{% endfor %}
+	<br>
+	<hr>
+	{% if session.username %}
+	<u>kirjoita uusi viesti:</u><br>
+	<form action="/new_message" method="POST">
+		<p>viestin sisältö:</p>
+		<textarea name="content" rows="30" cols="75"></textarea><br>
+		<input type="hidden" value="{{ topic_id }}" name="topic_id">
+		<input id="send_button" type="submit" value="lisää viesti!">
+	</form>
+	{% else %}
+	{% endif %}
+</div>
+<p class="info_text">Tämä on opintoihini liittyvä harjoitustyö.</p>
+
+</body>
+</html>

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<title>Kysymys&Vastaus - foorumi</title>
+<style>
+	body {
+		background-color: #33c4ff;
+	}
+	
+	a {
+		background-color: #ffd433;
+		color: black;
+		/*border-style: solid;*/
+	}
+	
+	a:hover {
+		color: white;
+		background-color: black;
+	}
+
+	.upper_panel {
+		background-color: yellow;
+		background-image: url({{url_for('static', filename='kysymys_ja_vastaus_logo_small.jpg')}});
+		padding: 79px;
+		background-repeat: no-repeat;
+		border-radius: .5em;
+		margin-left: 10%;
+		margin-right: 10%;
+	}
+
+	.middle_panel {
+		background-color: #33ffc7;
+		font-family: Arial, Helvetica, sans-serif;
+		padding-bottom: 7px;
+		border-radius: .5em;
+		margin-left: 10%;
+		margin-right: 10%;
+		margin-bottom: 4px
+	}
+
+	.content_area {
+		background-color: lightblue;
+		border-radius: .5em;
+		font-family: Arial, Helvetica, sans-serif;
+		margin-left: 10%;
+		margin-right: 10%;
+	}
+	
+	.message_area {
+		background-color: #F0F8FF;
+	}
+	
+	p.info_text {
+		margin-top: 5px;
+		background-color: red;
+		color: white;
+		font-family: "Lucida Console", "Courier New", monospace;
+		border-radius: .5em;
+		margin-left: 10%;
+		margin-right: 10%;
+	}
+	
+	form #send_button{
+		padding: 3px;
+		text-align: center;
+		width: 10em;
+		background: #387e3a;
+		color: white;
+	}
+	
+	form #login_button{
+		padding: 3px;
+		text-align: center;
+		width: 10em;
+		background: #387e3a;
+		color: white;
+	}
+	
+	a.logout {
+		padding-right: 3px;
+		padding-left: 3px;
+		padding-bottom: 5px;
+		padding-top: 5px;
+		background-image: url({{url_for('static', filename='button_background.jpg')}});
+		/*background-repeat: no-repeat;*/
+		color: white;
+	}
+
+</style>
+<body>
+<div class="upper_panel">
+</div>
+{% if session.username %}
+<div class="middle_panel">
+	{% if session.username %}
+	<p>Olet kirjautunut nimellä <b>{{ session.username }}</b></p>
+	<a class="logout" href="/logout">kirjaudu ulos</a>
+	{% else %}
+	<p>kirjautumisloamke</p>
+	<form action="/login" method="POST">
+	tunnus:
+	<input type="text" name="username">
+	salasana:
+	<input type="password" name="password">
+	<input type="submit" value="Kirjaudu">
+	<a href="/register">rekisteröidy</a></p>
+	</form>
+	{% endif %}
+	
+	<p><a href="/topics?msg_count=10">aihelistaan</a></p>
+	
+</div>
+
+<div class="content_area">
+	<h2>nykyinen profiilisi</h2>
+	<p><b>käyttäjätunnus: </b>{{ username }}</p>
+	<p><b>ikä: </b>{{ age }}</p>
+	<p><b>kertomus itsestäsi: </b><br>{{ about_me }}</p>
+	<br>
+	<form action="/update_profile" method="POST">
+		<p>ikäsi</p>
+		<input type="text" name="age" value="{{ age }}">
+		<p>kertomus itsestäsi</p>
+		<textarea name="about_me" rows="30" cols="75">{{ about_me }}</textarea><br>
+		
+		<input type="submit" value="päivitä muutokset">
+	</form>
+	<hr>
+</div>
+</div>
+<p class="info_text">Tämä on opintoihini liittyvä harjoitustyö.</div>
+{% else %}
+<p>Sinulle ei ole oikeuksia tälle sivulle!</p>
+{% endif %}
+</body>
+</html>
