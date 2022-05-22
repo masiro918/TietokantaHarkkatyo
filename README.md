@@ -4,4 +4,4 @@ keskusteluviestistä voi tykätä. Tässä minun tekemässäni keskustelufoorumi
 
 Rekisteröityneitä käyttäjiä on kolmea eri laatua: tavallinen, moderator ja admin. Tavallinen käyttäjä pystyy tekemään edellä mainitsemani asiat, eli luomaan kysymyksiä, vastaamaan muiden kysymyksiin ja tykkäämään kysymyksistä. Moderator pystyy poistamaan muiden viestejä. Admin-käyttäjällä on kaikista eniten valtuuksia. Admin pystyy tekemään kaikki edellä mainitsemani toimenpiteet. Lisäksi admin pystyy tekemään tavallisista käyttäjistä moderator-käyttäjiä ja poistamaan kenen tahansa käyttäjätilin. 
 
-Pääset testaamaan harjoitustyötäni täällä: https://tietokantaharkkatyo.herokuapp.com
+
