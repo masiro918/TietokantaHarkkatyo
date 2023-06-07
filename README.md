@@ -4,4 +4,10 @@ keskusteluviestistä voi tykätä. Tässä minun tekemässäni keskustelufoorumi
 
 Rekisteröityneitä käyttäjiä on kolmea eri laatua: tavallinen, moderator ja admin. Tavallinen käyttäjä pystyy tekemään edellä mainitsemani asiat, eli luomaan kysymyksiä, vastaamaan muiden kysymyksiin ja tykkäämään kysymyksistä. Moderator pystyy poistamaan muiden viestejä. Admin-käyttäjällä on kaikista eniten valtuuksia. Admin pystyy tekemään kaikki edellä mainitsemani toimenpiteet. Lisäksi admin pystyy tekemään tavallisista käyttäjistä moderator-käyttäjiä ja poistamaan kenen tahansa käyttäjätilin. 
 
+## Installation
+
+We assume that you have installed Docker on your desktop. You can install this software by using Docker hub or manually by command: docker build . -t TietokantaHarkkatyo. After that you can run it by typing: docker run -it -p 3000:5000 TietokantaHarkkatyo. Navigate to address: 127.0.0.1:3000
+
+ATTETION! The Docker container does not include database! You have to configure environment variables and database connetions yourself. The program still "runs", but not correctly because of database.
+
 
