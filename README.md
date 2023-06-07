@@ -8,6 +8,8 @@ Rekisteröityneitä käyttäjiä on kolmea eri laatua: tavallinen, moderator ja 
 
 We assume that you have installed Docker on your desktop. You can install this software by using Docker hub or manually by command: docker build . -t TietokantaHarkkatyo. After that you can run it by typing: docker run -it -p 3000:5000 TietokantaHarkkatyo. Navigate to address: 127.0.0.1:3000
 
+The another way is to pull image from docker hub: docker pull masiro918/devopswith-docker:latest
+
 ATTETION! The Docker container does not include database! You have to configure environment variables and database connetions yourself. The program still "runs", but not correctly because of database.
 
 
